@@ -54,20 +54,22 @@ class MonteCarlo:
     def __init__(self) -> None :
         pass
     def monte_carlo(T,S,K,r,n):
-        delta = T/365
+         delta = T/365
         sigma= np.std(S)
         mu=np.mean(S)
-        W= np.random.normal(mu, sigma**2,n)
-        drift= r-0.5*sigma**2
+        W= ss.norm.rvs(mu,sigma**2,n)
+        drift= r-0.5*(sigma**2)
         call=[]
         put=[]
-        final_price= ([S[i]*np.exp(drift*delta-sigma*W) for i in range (0,len(S))])
+        final_price= ([S[i]*np.exp(drift*delta+sigma*np.sqrt(delta)*W) for i in range (0,len(S))])
         for i in range (0,len(final_price)):
             call.append(np.maximum(final_price[i]-K,0 ))
+            print(call)
             put.append(np.maximum(K-final_price[i],0))
-        call_t=np.mean(call)
+            print(put)
+        call_t=([np.mean(call[i])for i in range (0, len(call))])
         print("Call option:",call_t)
-        put_t=np.mean(put)
+        put_t=([np.mean(put[i]) for i in range(0,len(put))])
         print("Put option", put_t)
         return call_t, put_t
 
