@@ -71,7 +71,8 @@ class MonteCarlo:
         print("Call option:",call_t)
         put_t=([np.mean(put[i]) for i in range(0,len(put))])
         print("Put option", put_t)
-        return call_t, put_t
+        return 
+
 
 
                 
