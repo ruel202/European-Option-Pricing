@@ -64,14 +64,10 @@ class MonteCarlo:
         final_price= ([S[i]*np.exp(drift*delta+sigma*np.sqrt(delta)*W) for i in range (0,len(S))])
         for i in range (0,len(final_price)):
             call.append(np.maximum(final_price[i]-K,0 ))
-            print(call)
             put.append(np.maximum(K-final_price[i],0))
-            print(put)
         call_t=([np.mean(call[i])for i in range (0, len(call))])
-        print("Call option:",call_t)
         put_t=([np.mean(put[i]) for i in range(0,len(put))])
-        print("Put option", put_t)
-        return 
+        return call_t, put_t
 
 
 
